@@ -10,7 +10,7 @@ namespace todo.Commands
     {
         public sealed class Settings : CommandSettings
         {
-            [CommandArgument(0, "<NAME>")]
+            [CommandOption("-n|--name <NAME>")]
             [Description("The name of the todo item to repeat.")]
             public string Name { get; set; }
 
