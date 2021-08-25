@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/dh/dev/csharp/todo/todo.csproj": {}
+  },
+  "projects": {
+    "/home/dh/dev/csharp/todo/todo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/dh/dev/csharp/todo/todo.csproj",
+        "projectName": "todo",
+        "projectPath": "/home/dh/dev/csharp/todo/todo.csproj",
+        "packagesPath": "/home/dh/.nuget/packages/",
+        "outputPath": "/home/dh/dev/csharp/todo/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/dh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Spectre.Console": {
+              "target": "Package",
+              "version": "[0.41.0, )"
+            },
+            "Spectre.Console.ImageSharp": {
+              "target": "Package",
+              "version": "[0.41.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
