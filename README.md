@@ -6,13 +6,24 @@ todo is a CLI application for taking notes. It makes use of [Spectre.Console](ht
 
 ### Demo
 
+gif will follow...
+
 ## Add a todo item
     todo item-add "Remember the milk"
-    todo ia "Remember the mil"
+    todo ia "Remember the milk"
 
-### Features
+Creates a new todo item with the name "Remember the milk".
+
+## Add a todo item as a one line
+    todo ia "Remember the milk" -d 01/01/2021
+
+Creates a new todo item with the name "Remember the milk" which is due at 01/01/2021.    
+
+### Other commands
     todo item-list
     todo item-show
+    todo item-add    
+    todo item-remove
 
 ### Screenshots
 
