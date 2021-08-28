@@ -55,11 +55,10 @@ public class TodoItem
         else
         {
             // no due date... we can relax...
-            return ":sleepy_face: No due date set.";
+            // return ":sleepy_face: No due date set.";
+            return ":sleepy_face:";
         }
-    }
-
-    
+    }  
 
     public double GetRemainingTimeValue()
     {
@@ -159,12 +158,8 @@ public class TodoItem
             .AddColumn("Content");
 
         var table = foo.AddNode(it);
-
-            for (int i = 0; i < this.Notes.Count; i++)
-            {
-                it.AddRow(i.ToString(), this.Notes[i]);
-            }
-
+        for (int i = 0; i < this.Notes.Count; i++)
+            it.AddRow(i.ToString(), this.Notes[i]);
 
         AnsiConsole.Render(root);
     }
@@ -228,10 +223,12 @@ public class TodoItem
         var table = new Table()
             .Border(TableBorder.Rounded)
             // .BorderStyle(Style.Plain)
-            .Title("Todo Items")
+            .Title("Todo Item")
             .AddColumn(new TableColumn("Done"))
             .AddColumn(new TableColumn("Name"))
             .AddColumn(new TableColumn("Due"));
+
+        table.AddRow(new Text(this.GetDueText()), new Text(this.Name), new Text(this.GetDueText()));
 
         if (notes)
         if (this.Notes != null && this.Notes.Count > 0)
@@ -268,6 +265,24 @@ public class TodoItem
                 subtable.AddRow(new Text(filename));
             table.AddRow(new Text(""), new Text(""), subtable);
         }
+
+                // display due at calendar item
+        if (calendar)
+        {
+            // todo: move this to the third column
+            var duenode = table.AddRow($"[yellow]Due at:[/] { this.DueAt.ToLongDateString() }");
+            duenode.AddRow(new Calendar(this.DueAt.Year, this.DueAt.Month)
+                .Border(TableBorder.Rounded)
+                .BorderStyle(new Style(Color.Green3_1))
+                .AddCalendarEvent(this.DueAt.Year, this.DueAt.Month, this.DueAt.Day)
+                .HideHeader()
+                );           
+
+            // display progression    
+            var progressstatuschart = GetRemainingTimeProgressChart();
+            duenode.AddRow(new Text(""), new Text(""), progressstatuschart);
+        }
+        
         return table;
     }
 
