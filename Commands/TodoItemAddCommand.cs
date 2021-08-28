@@ -32,7 +32,7 @@ namespace todo.Commands
             if (string.IsNullOrEmpty(settings.Name))
                 item.Name = AnsiConsole.Ask<string>("Whats the todo item's [green]name[/]?");
             else
-                item = tm.Items.FindItem(settings.Name);
+                item.Name = settings.Name;
 
             if (settings.DueAt == null)
                 if (AnsiConsole.Confirm("Do you want to set a due date?", false))
