@@ -33,7 +33,12 @@ namespace todo.Commands
             [CommandOption("-c|--calendar")]
             [Description("Display the calendar.")]
             [DefaultValue(false)]
-            public bool Calendar { get; set; }        
+            public bool Calendar { get; set; }
+
+            [CommandOption("-t|--tree")]
+            [Description("Display as a tree instead of a table.")]
+            [DefaultValue(false)]
+            public bool Tree { get; set; }    
         }
 
         public override int Execute(CommandContext context, Settings settings)
@@ -49,7 +54,10 @@ namespace todo.Commands
 
             // show details
             if (item != null)
-                AnsiConsole.Render(item.GetDetailsTree(settings.Repetations, settings.Attachments, settings.Notes, settings.Calendar)); 
+                if (settings.Tree)
+                    AnsiConsole.Render(item.GetDetailsTree(settings.Repetations, settings.Attachments, settings.Notes, settings.Calendar)); 
+                else
+                    AnsiConsole.Render(item.GetDetailsTable(settings.Repetations, settings.Attachments, settings.Notes, settings.Calendar)); 
             else
                 AnsiConsole.MarkupLine($"[red]Todo item { settings.Name } not found![/].");
 

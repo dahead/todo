@@ -68,6 +68,7 @@ namespace todo
                             .WithDescription("Manage notes of a todo item.");
 
                      config.AddCommand<TodoNoteAddCommand>("item-note-add")
+                            .WithAlias("ina")
                             .WithAlias("na")
                             .WithDescription("Quickly add a note to a todo item.");
                      });
