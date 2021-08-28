@@ -25,7 +25,7 @@ namespace todo.Commands
             TodoItem item = null;
 
             // check if we have at least the basics...
-            if (string.IsNullOrEmpty(settings.Name))
+            if (string.IsNullOrWhiteSpace(settings.Name))
                 item = tm.Items.ShowSelectItemDialog("In which todo item do you want to add notes?");
             else
                 item = tm.Items.FindItem(settings.Name);

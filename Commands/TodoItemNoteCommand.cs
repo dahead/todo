@@ -21,7 +21,7 @@ namespace todo.Commands
             TodoItem item = null;
 
             // check if we have at least the basics...
-            if (string.IsNullOrEmpty(settings.Name))
+            if (string.IsNullOrWhiteSpace(settings.Name))
                 item = tm.Items.ShowSelectItemDialog("What todo item do you want to manage notes for?");
             else
                 item = tm.Items.FindItem(settings.Name);

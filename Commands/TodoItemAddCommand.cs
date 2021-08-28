@@ -29,7 +29,7 @@ namespace todo.Commands
             TodoItem item = new TodoItem();
 
             // check if we have at least the basics...
-            if (string.IsNullOrEmpty(settings.Name))
+            if (string.IsNullOrWhiteSpace(settings.Name))
                 item.Name = AnsiConsole.Ask<string>("Whats the todo item's [green]name[/]?");
             else
                 item.Name = settings.Name;
