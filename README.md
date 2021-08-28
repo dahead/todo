@@ -17,9 +17,4 @@ todo is a CLI application for taking notes. It makes use of [Spectre.Console](ht
 
 
 ### Commands
-
-    todo --help
-
-    todo item-add "Item Name"
-    todo item-remove "Item Name"
-    
+![Todo commands](commands.png "Commands")
