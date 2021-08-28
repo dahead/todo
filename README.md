@@ -4,6 +4,18 @@
 
 todo is a CLI application for taking notes. It makes use of [Spectre.Console](https://github.com/spectreconsole/spectre.console)
 
+### Features
+
+todo items can be displayed as a table.
+
+Each todo item has
+
+* due date
+* reminder
+* repetations
+* attachments
+* notes
+
 ### Demo
 
 gif will follow...
