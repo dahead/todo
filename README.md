@@ -6,9 +6,10 @@ todo is a CLI application for taking notes. It makes use of [Spectre.Console](ht
 
 ### Features
 
-todo items can be displayed as a table.
+todo items can be displayed as a table, or as a tree.
+todo can also show a calendar like control.
 
-Each todo item has
+Each todo item has the following features:
 
 * due date
 * reminder
