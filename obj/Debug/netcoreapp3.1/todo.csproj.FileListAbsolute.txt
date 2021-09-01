@@ -9,9 +9,12 @@
 /home/dh/dev/csharp/todo/bin/Debug/netcoreapp3.1/Spectre.Console.dll
 /home/dh/dev/csharp/todo/bin/Debug/netcoreapp3.1/Spectre.Console.ImageSharp.dll
 /home/dh/dev/csharp/todo/bin/Debug/netcoreapp3.1/Wcwidth.dll
-/home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.csprojAssemblyReference.cache
+/home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.csproj.AssemblyReference.cache
+/home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.GeneratedMSBuildEditorConfig.editorconfig
 /home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.AssemblyInfoInputs.cache
 /home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.AssemblyInfo.cs
+/home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.csproj.CoreCompileInputs.cache
 /home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.csproj.CopyComplete
 /home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.dll
 /home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.pdb
+/home/dh/dev/csharp/todo/obj/Debug/netcoreapp3.1/todo.genruntimeconfig.cache

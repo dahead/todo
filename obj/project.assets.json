@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net5.0": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
@@ -23,14 +23,13 @@
       "Spectre.Console/0.41.0": {
         "type": "package",
         "dependencies": {
-          "System.Memory": "4.5.0",
           "Wcwidth": "0.2.0"
         },
         "compile": {
-          "lib/netstandard2.0/Spectre.Console.dll": {}
+          "lib/net5.0/Spectre.Console.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Spectre.Console.dll": {}
+          "lib/net5.0/Spectre.Console.dll": {}
         }
       },
       "Spectre.Console.ImageSharp/0.41.0": {
@@ -40,19 +39,10 @@
           "Spectre.Console": "0.41.0"
         },
         "compile": {
-          "lib/netstandard2.0/Spectre.Console.ImageSharp.dll": {}
+          "lib/net5.0/Spectre.Console.ImageSharp.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Spectre.Console.ImageSharp.dll": {}
-        }
-      },
-      "System.Memory/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
+          "lib/net5.0/Spectre.Console.ImageSharp.dll": {}
         }
       },
       "Wcwidth/0.2.0": {
@@ -150,45 +140,6 @@
         "spectre.console.imagesharp.nuspec"
       ]
     },
-    "System.Memory/4.5.0": {
-      "sha512": "m0psCSpUxTGfvwyO0i03ajXVhgBqyXlibXz0Mo1dtKGjaHrXFLnuQ8rNBTmWRqbfRjr4eC6Wah4X5FfuFDu5og==",
-      "type": "package",
-      "path": "system.memory/4.5.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/netcoreapp2.1/_._",
-        "lib/netstandard1.1/System.Memory.dll",
-        "lib/netstandard1.1/System.Memory.xml",
-        "lib/netstandard2.0/System.Memory.dll",
-        "lib/netstandard2.0/System.Memory.xml",
-        "lib/uap10.0.16300/_._",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/netcoreapp2.1/_._",
-        "ref/netstandard1.1/System.Memory.dll",
-        "ref/netstandard1.1/System.Memory.xml",
-        "ref/netstandard2.0/System.Memory.dll",
-        "ref/netstandard2.0/System.Memory.xml",
-        "ref/uap10.0.16300/_._",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.memory.4.5.0.nupkg.sha512",
-        "system.memory.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "Wcwidth/0.2.0": {
       "sha512": "H7no2W0vuLJTvSPanlrijtG3UdJNVoeWBOp2a5dJFVa2tqSQuP5GfbJw1xAtPG9agRW310nFTUUsyPz5tuVIxw==",
       "type": "package",
@@ -204,7 +155,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net5.0": [
       "Newtonsoft.Json >= 13.0.1",
       "Spectre.Console >= 0.41.0",
       "Spectre.Console.ImageSharp >= 0.41.0"
@@ -226,13 +177,14 @@
         "/home/dh/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "netcoreapp5"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "netcoreapp5",
           "projectReferences": {}
         }
       },
@@ -243,7 +195,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "net5.0": {
+        "targetAlias": "netcoreapp5",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -273,7 +226,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }
