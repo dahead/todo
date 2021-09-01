@@ -55,7 +55,7 @@ namespace todo.Commands
 
                 int modifier = AnsiConsole.Ask<int>("In which [green]intervals[/] do you want the repetation?");
                 int amount = AnsiConsole.Ask<int>("How [green]many[/] repetations of this type do you want to add?");
-                item.RepetationList.AddIntervals(item.DueAt, rt, modifier, amount);
+                item.RepetationList.AddIntervals(item.DueAt.Value, rt, modifier, amount);
             }
 
             // show the details of the item to add

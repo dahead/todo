@@ -30,7 +30,7 @@ public class TodoList : List<TodoItem>
 			.Border(TableBorder.Rounded)
 			.ShowHeaders()
 			// .BorderStyle(Style.Plain)
-			.Title("Todo Items")
+			.Title("Todo Items List")
 			.AddColumn(new TableColumn("Done"))
 			.AddColumn(new TableColumn("Name"))
 			.AddColumn(new TableColumn("Due"));

@@ -14,29 +14,20 @@ public class TodoItem
 	}
 
 	public string Name { get; set; }
-	// public string Description { get; set; }
 	public List<string> Notes { get; set; }
 	public DateTime CreatedAt { get; set; }
-
-
-	public DateTime DueAt { get; set; }
+	public Nullable<DateTime> DueAt { get; set; }
 	public Repetation.RepetationList RepetationList { get; set; }
-
 	public bool IsDone { get => this.IsOverDue(); }
-
-	public DateTime RemindMeAt { get; set; }
-
+	public Nullable<DateTime> RemindMeAt { get; set; }
 	public List<string> Attachments { get; set; }
 	public List<TodoTask> Tasks { get; set; }
-
-	private DateTime NoDate = new DateTime(1, 1, 1);
-
 	private const string DefaultDateFormatString = "MMM dd yyyy hh:mm:ss";
 
 	public TodoItem()
 	{
 		this.CreatedAt = DateTime.Now;
-		this.DueAt = NoDate;
+		this.DueAt = null;
 		this.Notes = new List<string>();
 		this.Attachments = new List<string>();
 		this.Tasks = new List<TodoTask>();
@@ -45,26 +36,24 @@ public class TodoItem
 
 	public string GetDueText()
 	{
-		if (this.DueAt != NoDate)
+		if (this.DueAt != null && this.DueAt.HasValue)
 		{
-			string duetext = this.DueAt.ToString(DefaultDateFormatString);
-			TimeSpan ts = this.DueAt - DateTime.UtcNow;
+			string duetext = this.DueAt.Value.ToString(DefaultDateFormatString);
+			TimeSpan ts = this.DueAt.Value - DateTime.UtcNow;
 			if (ts.Ticks < 0)
-				return $":warning: [red]{ duetext }[/] { ts.ToReadableString() }";
+				return $"[red]{ duetext }[/] { ts.ToReadableString() }";
 			else
-				return $":waning_crescent_moon: [green]{ duetext }[/] { ts.ToReadableString() }";
+				return $"[green]{ duetext }[/] { ts.ToReadableString() }";
 		}
 		else
 		{
-			// no due date... we can relax...
-			// return ":sleepy_face: No due date set.";
-			return ":sleepy_face:";
+			return string.Empty;
 		}
 	}
 
 	public double GetRemainingTimeValue()
 	{
-		if (this.DueAt == NoDate)
+		if (this.DueAt == null)
 			return 0;
 		return 100 - GetPassedTimeValue();
 	}
@@ -72,15 +61,15 @@ public class TodoItem
 	public double GetPassedTimeValue()
 	{
 		// returns the remaining time in percent
-		if (this.DueAt == NoDate)
+		if (this.DueAt == null)
 			return 0;
 
 		// remaining time
-		long ts = this.DueAt.Ticks - DateTime.Now.Ticks;
+		long ts = this.DueAt.Value.Ticks - DateTime.Now.Ticks;
 		TimeSpan tsa = new TimeSpan(ts);
 
 		// passed time
-		long ta = this.DueAt.Ticks - this.CreatedAt.Ticks;
+		long ta = this.DueAt.Value.Ticks - this.CreatedAt.Ticks;
 		TimeSpan taa = new TimeSpan(ta);
 
 		var to = tsa.Ticks + taa.Ticks;
@@ -97,12 +86,6 @@ public class TodoItem
 		// return total;
 	}
 
-
-
-
-
-
-
 	public string GetRemainingTimePercentString()
 	{
 		return $"{ this.GetPassedTimeValue() } | 100 %";
@@ -110,9 +93,9 @@ public class TodoItem
 
 	private bool IsOverDue()
 	{
-		if (this.DueAt == NoDate)
+		if (this.DueAt == null)
 			return false;
-		return DateTime.Now.Ticks > this.DueAt.Ticks;
+		return DateTime.Now.Ticks > this.DueAt.Value.Ticks;
 	}
 
 	public void NoteEdit()
@@ -253,7 +236,8 @@ public class TodoItem
 			.AddColumn(new TableColumn("Name"))
 			.AddColumn(new TableColumn("Due"));
 
-		table.AddRow(new Text(this.GetDueText()), new Text(this.Name), new Text(this.GetDueText()));
+		table.AddRow($"{ this.IsDone.ToString() }", $"[blue]{ this.Name } [/]", $"{ this.GetDueText() }");
+
 
 		if (notes)
 			if (this.Notes != null && this.Notes.Count > 0)
@@ -275,7 +259,7 @@ public class TodoItem
 					.BorderColor(Color.Grey)
 					.AddColumn("Repetations:");
 				foreach (var subitem in this.RepetationList)
-					subtable.AddRow(new Text(subitem.RepeatAt.ToShortDateString()));
+					subtable.AddRow(new Text(subitem.RepeatAt.ToString(DefaultDateFormatString)));
 				table.AddRow(new Text(""), new Text(""), subtable);
 			}
 
@@ -294,16 +278,7 @@ public class TodoItem
 		// display due at calendar item
 		if (calendar)
 		{
-			// todo: move this to the third column
-			// var duenode = table.AddRow($"[yellow]Due at:[/] { this.DueAt.ToString(DefaultDateFormatString) }");
-			var duenode = table.AddRow(new Calendar(this.DueAt.Year, this.DueAt.Month)
-				.Border(TableBorder.Rounded)
-				.BorderStyle(new Style(Color.Green3_1))
-				.AddCalendarEvent(this.DueAt.Year, this.DueAt.Month, this.DueAt.Day)
-				.HideHeader()
-				);
-
-			// display progression    
+			var duenode = table.AddRow(GetDueAtCalender());
 			var progressstatuschart = GetRemainingTimeProgressChart();
 			duenode.AddRow(new Text(""), new Text(""), progressstatuschart);
 		}
@@ -323,19 +298,10 @@ public class TodoItem
 		// display due at calendar item
 		if (calendar)
 		{
-			// var duenode = tree.AddNode($"[yellow]Due at:[/] { this.DueAt.ToString(DefaultDateFormatString) }");
-			var duenode = tree.AddNode(new Calendar(this.DueAt.Year, this.DueAt.Month)
-				.Border(TableBorder.Rounded)
-				.BorderStyle(new Style(Color.Green3_1))
-				.AddCalendarEvent(this.DueAt.Year, this.DueAt.Month, this.DueAt.Day)
-				.HideHeader()
-				);
-
-			// display progression    
+			var duenode = tree.AddNode(GetDueAtCalender());
 			var progressstatuschart = GetRemainingTimeProgressChart();
 			duenode.AddNode(progressstatuschart);
 		}
-
 
 		// Add notes
 		if (notes)
@@ -352,7 +318,7 @@ public class TodoItem
 			{
 				var foo = tree.AddNode("[yellow]Repetations:[/]");
 				foreach (var item in this.RepetationList)
-					foo.AddNode(item.RepeatAt.ToLongDateString());
+					foo.AddNode(item.RepeatAt.ToString(DefaultDateFormatString));
 			}
 
 		// Add attachments
@@ -375,5 +341,12 @@ public class TodoItem
 			.AddItem("Time passed", this.GetPassedTimeValue(), Color.Red)
 			.AddItem("Time remaining until due", this.GetRemainingTimeValue(), Color.Green);
 	}
-
+	private Calendar GetDueAtCalender()
+	{
+		return new Calendar(this.DueAt.Value.Year, this.DueAt.Value.Month)
+						.Border(TableBorder.Rounded)
+						.BorderStyle(new Style(Color.Green3_1))
+						.AddCalendarEvent(this.DueAt.Value.Year, this.DueAt.Value.Month, this.DueAt.Value.Day)
+						.HideHeader();
+	}
 }

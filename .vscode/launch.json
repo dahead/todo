@@ -11,8 +11,9 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/netcoreapp5/todo",
             "args": [
-                // "item-show",
-                // "-tranc"
+                "item-show",
+                "MFA",
+                "-ranc"
             ],
             "cwd": "${workspaceFolder}",
             "console": "externalTerminal",

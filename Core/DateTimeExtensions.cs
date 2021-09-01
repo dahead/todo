@@ -5,6 +5,11 @@ using System.Linq;
 public static class DateTimeExtensions
 {
 
+	public static string ToReadableStringSimple(this TimeSpan span)
+	{
+		return new DateTime(span.Ticks).ToString("MMM dd yyyy hh:mm:ss");
+	}
+
 	public static string ToReadableString(this TimeSpan span)
 	{
 		return string.Join(", ", span.GetReadableStringElements()
@@ -45,10 +50,8 @@ public static class DateTimeExtensions
 	{
 		if (minutes == 0)
 			return string.Empty;
-
 		if (minutes == 1)
 			return "1 minute";
-
 		return string.Format("{0:0} minutes", minutes);
 	}
 
@@ -56,16 +59,10 @@ public static class DateTimeExtensions
 	{
 		if (seconds == 0)
 			return string.Empty;
-
 		if (seconds == 1)
 			return "1 second";
-
-		return string.Format("{0:0} seconds", seconds);
+		return string.Format("{0:0} S", seconds);
 	}
-
-
-
-
 
 	public static string TimeAgo(DateTime dt)
 	{
@@ -101,7 +98,6 @@ public static class DateTimeExtensions
 
 		return string.Empty;
 	}
-
 
 	public static string GetAgeOf(DateTimeOffset createdAt)
 	{
