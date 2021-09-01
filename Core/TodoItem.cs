@@ -47,12 +47,15 @@ public class TodoItem
 	{
 		if (this.DueAt != NoDate)
 		{
-			string result = this.DueAt.ToString(DefaultDateFormatString);
-			if (DateTime.Now.Ticks > this.DueAt.Ticks)
-				// ohoh... we passed the due date
-				return ":warning: " + result;
-			else
-				return ":waning_crescent_moon: " + result;
+
+			return GetAgeOf(this.DueAt);
+
+			// string result = this.DueAt.ToString(DefaultDateFormatString);
+			// if (DateTime.Now.Ticks > this.DueAt.Ticks)
+			// 	// ohoh... we passed the due date
+			// 	return ":warning: " + result;
+			// else
+			// 	return ":waning_crescent_moon: " + result;
 		}
 		else
 		{
@@ -64,7 +67,7 @@ public class TodoItem
 
 	public double GetRemainingTimeValue()
 	{
-		if (this.DueAt == null)
+		if (this.DueAt == NoDate)
 			return 0;
 		return 100 - GetPassedTimeValue();
 	}
@@ -72,47 +75,41 @@ public class TodoItem
 	public double GetPassedTimeValue()
 	{
 		// returns the remaining time in percent
-		if (this.DueAt == null || this.DueAt == NoDate)
+		if (this.DueAt == NoDate)
 			return 0;
 
 		// remaining time
 		long ts = this.DueAt.Ticks - DateTime.Now.Ticks;
-		TimeSpan tsa = new TimeSpan(ts); // noch 8h
+		TimeSpan tsa = new TimeSpan(ts);
 
 		// passed time
 		long ta = this.DueAt.Ticks - this.CreatedAt.Ticks;
-		TimeSpan taa = new TimeSpan(ta); // bereits 72 tage rum. 72*24=
+		TimeSpan taa = new TimeSpan(ta);
 
-		var to = tsa.Ticks + taa.Ticks;//=100%
-		var tst = new TimeSpan(to); //=100%        
+		var to = tsa.Ticks + taa.Ticks;
+		// var tst = new TimeSpan(to);
 
 		var xx1 = ta * 100 / to;
-		var xx2 = ts * 100 / to;
+		// var xx2 = ts * 100 / to;
 
 		return xx1;
-
 
 		// TimeSpan rest = this.DueAt - DateTime.Now;
 		// TimeSpan passed = this.DueAt - this.CreatedAt;
 		// var total = (passed.Ticks + rest.Ticks) / rest.Ticks;
 		// return total;
 	}
-	static string GetAgeOfStory(DateTimeOffset createdAt)
+	static string GetAgeOf(DateTimeOffset createdAt)
 	{
-		var timespanSinceStoryCreated = DateTimeOffset.UtcNow - createdAt;
-
-		return timespanSinceStoryCreated switch
+		var tsSinceCreation = DateTimeOffset.UtcNow - createdAt;
+		return tsSinceCreation switch
 		{
-			TimeSpan storyAge when storyAge < TimeSpan.FromHours(1) => $"{Math.Ceiling(timespanSinceStoryCreated.TotalMinutes)} minutes",
-
-			TimeSpan storyAge when storyAge >= TimeSpan.FromHours(1) && storyAge < TimeSpan.FromHours(2) => $"{Math.Floor(timespanSinceStoryCreated.TotalHours)} hour",
-
-			TimeSpan storyAge when storyAge >= TimeSpan.FromHours(2) && storyAge < TimeSpan.FromHours(24) => $"{Math.Floor(timespanSinceStoryCreated.TotalHours)} hours",
-
-			TimeSpan storyAge when storyAge >= TimeSpan.FromHours(24) && storyAge < TimeSpan.FromHours(48) => $"{Math.Floor(timespanSinceStoryCreated.TotalDays)} day",
-
-			TimeSpan storyAge when storyAge >= TimeSpan.FromHours(48) => $"{Math.Floor(timespanSinceStoryCreated.TotalDays)} days",
-
+			TimeSpan Age when Age < TimeSpan.FromHours(0) => $"{Math.Ceiling(tsSinceCreation.TotalDays)} days",
+			TimeSpan Age when Age < TimeSpan.FromHours(1) => $"{Math.Ceiling(tsSinceCreation.TotalMinutes)} minutes",
+			TimeSpan Age when Age >= TimeSpan.FromHours(1) && Age < TimeSpan.FromHours(2) => $"{Math.Floor(tsSinceCreation.TotalHours)} hour",
+			TimeSpan Age when Age >= TimeSpan.FromHours(2) && Age < TimeSpan.FromHours(24) => $"{Math.Floor(tsSinceCreation.TotalHours)} hours",
+			TimeSpan Age when Age >= TimeSpan.FromHours(24) && Age < TimeSpan.FromHours(48) => $"{Math.Floor(tsSinceCreation.TotalDays)} day",
+			TimeSpan Age when Age >= TimeSpan.FromHours(48) => $"{Math.Floor(tsSinceCreation.TotalDays)} days",
 			_ => string.Empty,
 		};
 	}
@@ -124,7 +121,7 @@ public class TodoItem
 
 	private bool IsOverDue()
 	{
-		if (this.DueAt == null)
+		if (this.DueAt == NoDate)
 			return false;
 		return DateTime.Now.Ticks > this.DueAt.Ticks;
 	}
