@@ -47,15 +47,12 @@ public class TodoItem
 	{
 		if (this.DueAt != NoDate)
 		{
-
-			return GetAgeOf(this.DueAt);
-
-			// string result = this.DueAt.ToString(DefaultDateFormatString);
-			// if (DateTime.Now.Ticks > this.DueAt.Ticks)
-			// 	// ohoh... we passed the due date
-			// 	return ":warning: " + result;
-			// else
-			// 	return ":waning_crescent_moon: " + result;
+			string duetext = this.DueAt.ToString(DefaultDateFormatString);
+			TimeSpan ts = this.DueAt - DateTime.UtcNow;
+			if (ts.Ticks < 0)
+				return $":warning: [red]{ duetext }[/] { ts.ToReadableString() }";
+			else
+				return $":waning_crescent_moon: [green]{ duetext }[/] { ts.ToReadableString() }";
 		}
 		else
 		{
@@ -99,20 +96,12 @@ public class TodoItem
 		// var total = (passed.Ticks + rest.Ticks) / rest.Ticks;
 		// return total;
 	}
-	static string GetAgeOf(DateTimeOffset createdAt)
-	{
-		var tsSinceCreation = DateTimeOffset.UtcNow - createdAt;
-		return tsSinceCreation switch
-		{
-			TimeSpan Age when Age < TimeSpan.FromHours(0) => $"{Math.Ceiling(tsSinceCreation.TotalDays)} days",
-			TimeSpan Age when Age < TimeSpan.FromHours(1) => $"{Math.Ceiling(tsSinceCreation.TotalMinutes)} minutes",
-			TimeSpan Age when Age >= TimeSpan.FromHours(1) && Age < TimeSpan.FromHours(2) => $"{Math.Floor(tsSinceCreation.TotalHours)} hour",
-			TimeSpan Age when Age >= TimeSpan.FromHours(2) && Age < TimeSpan.FromHours(24) => $"{Math.Floor(tsSinceCreation.TotalHours)} hours",
-			TimeSpan Age when Age >= TimeSpan.FromHours(24) && Age < TimeSpan.FromHours(48) => $"{Math.Floor(tsSinceCreation.TotalDays)} day",
-			TimeSpan Age when Age >= TimeSpan.FromHours(48) => $"{Math.Floor(tsSinceCreation.TotalDays)} days",
-			_ => string.Empty,
-		};
-	}
+
+
+
+
+
+
 
 	public string GetRemainingTimePercentString()
 	{
